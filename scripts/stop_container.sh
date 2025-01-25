@@ -2,14 +2,7 @@
 set -e
 
 # Stop the running container (if any)
-# Get all running container IDs
-containerids=$(docker ps --format "{{.ID}}")
+containerid=`docker ps | awk -F " " '{print $1}'`
+docker rm -f $containerid
 
-# Check if there are any running containers
-if [ -n "$containerids" ]; then
-  # Stop and remove all running containers
-  docker rm -f $containerids
-else
-  echo "No running containers to remove."
-fi
 
